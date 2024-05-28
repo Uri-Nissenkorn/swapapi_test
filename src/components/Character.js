@@ -37,7 +37,7 @@ function Character({ character_url }) {
     );
   }
 
-  if (character.detail == "Not found") {
+  if (character.detail === "Not found") {
     return (
       <Card>
         {" "}

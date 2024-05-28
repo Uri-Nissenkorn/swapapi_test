@@ -41,7 +41,7 @@ function Starship({ starship_url }) {
     );
   }
 
-  if (starship.detail == "Not found") {
+  if (starship.detail === "Not found") {
     return <p>Starship not found</p>;
   }
 

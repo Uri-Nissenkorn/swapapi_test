@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Popover,
-  Popper,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 
 import Character from "./Character";

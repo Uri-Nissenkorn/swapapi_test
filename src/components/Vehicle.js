@@ -41,7 +41,7 @@ function Vehicle({ vehicle_url }) {
     );
   }
 
-  if (vehicle.detail == "Not found") {
+  if (vehicle.detail === "Not found") {
     return <p>Vehicle not found</p>;
   }
 

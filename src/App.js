@@ -1,8 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { Box, Button, Divider, TextField } from "@mui/material";
+
+import { Box, Divider, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import Film from "./components/Film";
 

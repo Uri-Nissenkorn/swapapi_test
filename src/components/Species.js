@@ -43,7 +43,7 @@ function Species({ species_url }) {
     );
   }
 
-  if (species.detail == "Not found") {
+  if (species.detail === "Not found") {
     return <p>Species not found</p>;
   }
 
