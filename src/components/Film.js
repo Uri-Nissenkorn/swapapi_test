@@ -38,7 +38,7 @@ export default function Film({ film }) {
   };
 
   return (
-    <Card>
+    <Card border={1} borderColor="black">
       <CardContent>
         <h1>{film.title}</h1>
         <p>

@@ -14,7 +14,11 @@ const ExpandableAccordion = ({
   renderItem,
 }) => {
   return (
-    <Accordion expanded={expanded} onChange={onChange}>
+    <Accordion
+      expanded={expanded}
+      onChange={onChange}
+      sx={{ backgroundColor: "#f5f5f5" }}
+    >
       <AccordionSummary expandIcon={<Button>{expanded ? "-" : "+"}</Button>}>
         <Typography>{title}</Typography>
       </AccordionSummary>
