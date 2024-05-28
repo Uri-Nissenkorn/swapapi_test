@@ -2,18 +2,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useEffect, useState } from "react";
 
-function Character({ character_url }) {
-  const [character, setCharacter] = useState(null);
+function Starship({ starship_url }) {
+  const [starship, setStarship] = useState(null);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
-      const response = await fetch(character_url);
+      const response = await fetch(starship_url);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      setCharacter(data);
+      setStarship(data);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       setError(error.message);
@@ -22,67 +22,66 @@ function Character({ character_url }) {
 
   useEffect(() => {
     fetchData();
-  }, [character_url]);
+  }, [starship_url]);
 
   if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  if (!character) {
     return (
       <Card>
-        {" "}
-        <p>Loading...</p>
+        <p>Error: {error}</p>{" "}
       </Card>
     );
   }
 
-  if (character.detail == "Not found") {
+  if (!starship) {
     return (
       <Card>
         {" "}
-        <p>Character not found</p>
+        <p>Loading...</p>{" "}
       </Card>
     );
+  }
+
+  if (starship.detail == "Not found") {
+    return <p>Starship not found</p>;
   }
 
   return (
     <Card flex={1} sx={{ minWidth: 275, maxWidth: 275 }}>
       <CardContent>
-        <h3>{character.name}</h3>
+        <h3>{starship.name}</h3>
         <p>
-          <u>Height: </u>
+          <u>Model: </u>
           <br />
-          {character.height}
+          {starship.model}
         </p>
         <p>
-          <u>Mass:</u>
+          <u>Manufacturer:</u>
           <br />
-          {character.mass}
+          {starship.manufacturer}
         </p>
         <p>
-          <u>Hair color: </u>
+          <u>Cost:</u>
           <br />
-          {character.hair_color}
+          {starship.cost_in_credits}
         </p>
         <p>
-          <u>Skin color: </u>
+          <u>Passengers:</u>
           <br />
-          {character.skin_color}
+          {starship.passengers}
         </p>
         <p>
-          <u>Eye color: </u>
+          <u>Cargo Capacity:</u>
           <br />
-          {character.eye_color}
+          {starship.cargo_capacity}
         </p>
         <p>
-          <u>Birth Year: </u>
+          <u>Consumables:</u>
           <br />
-          {character.birth_year}
+          {starship.consumables}
         </p>
       </CardContent>
     </Card>
   );
 }
 
-export default Character;
+export default Starship;

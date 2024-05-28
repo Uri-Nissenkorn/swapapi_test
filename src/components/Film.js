@@ -12,12 +12,18 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Character from "./Character";
+import Starship from "./Starship";
 
 export default function Film({ film }) {
   const [charactersExpanded, setCharactersExpanded] = useState(false);
+  const [starshipsExpanded, setStarshipsExpanded] = useState(false);
 
-  const handleClick = (event) => {
+  const handleClickCharacters = (event) => {
     setCharactersExpanded((prev) => !prev);
+  };
+
+  const handleClickStarships = (event) => {
+    setStarshipsExpanded((prev) => !prev);
   };
 
   return (
@@ -44,7 +50,10 @@ export default function Film({ film }) {
           <br />
           {film.producer}
         </p>
-        <Accordion expanded={charactersExpanded} onChange={handleClick}>
+        <Accordion
+          expanded={charactersExpanded}
+          onChange={handleClickCharacters}
+        >
           <AccordionSummary
             expandIcon={<Button>{charactersExpanded ? "-" : "+"}</Button>}
           >
@@ -55,6 +64,21 @@ export default function Film({ film }) {
               {charactersExpanded &&
                 film.characters.map((c) => (
                   <Character key={c} character_url={c} />
+                ))}
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion expanded={starshipsExpanded} onChange={handleClickStarships}>
+          <AccordionSummary
+            expandIcon={<Button>{starshipsExpanded ? "-" : "+"}</Button>}
+          >
+            <Typography>Starships</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
+              {starshipsExpanded &&
+                film.starships.map((s) => (
+                  <Starship key={s} starship_url={s} />
                 ))}
             </Box>
           </AccordionDetails>
