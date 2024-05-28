@@ -2,11 +2,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Box } from "@mui/material";
-import { useEffect } from "react";
+import { Box, Button, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
+import Film from "./components/Film";
 
 function App() {
-  const [films, setFilms] = useState([]);
+  const [films, setFilms] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const fetchData = async () => {
     const response = await fetch("https://swapi.dev/api/films/");
     if (!response.ok) {
@@ -22,22 +25,21 @@ function App() {
   }, []);
 
   return (
-    <Box>
-      {films.map((i) => (
-        <Card key={i}>
-          <CardContent>
-            <h1>{i.title}</h1>
-            <p>{i.release_date}</p>
-            <p>{i.opening_crawl}</p>
-            <p>{i.director}</p>
-            <p>{i.producer}</p>
-            <p>{i.url}</p>
-            <p>{i.episode_id}</p>
-            <p>{i.created}</p>
-            <p>{i.edited}</p>
-          </CardContent>
-        </Card>
-      ))}
+    <Box flex={1}>
+      <TextField
+        label="Search"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {films ? (
+        films
+          .filter((i) =>
+            i.title.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((i) => <Film key={i.episode_id} film={i} />)
+      ) : (
+        <Box>Loading...</Box>
+      )}
     </Box>
   );
 }
