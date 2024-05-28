@@ -8,13 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
+
 import Character from "./Character";
 import Starship from "./Starship";
 import Vehicle from "./Vehicle";
 import Species from "./Species";
+import ExpandableAccordion from "./ExpandibleAccordion";
 
 export default function Film({ film }) {
   const [charactersExpanded, setCharactersExpanded] = useState(false);
@@ -62,65 +61,34 @@ export default function Film({ film }) {
           <br />
           {film.producer}
         </p>
-        <Accordion
+        <ExpandableAccordion
+          title="Characters"
           expanded={charactersExpanded}
           onChange={handleClickCharacters}
-        >
-          <AccordionSummary
-            expandIcon={<Button>{charactersExpanded ? "-" : "+"}</Button>}
-          >
-            <Typography>Characters</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
-              {charactersExpanded &&
-                film.characters.map((c) => (
-                  <Character key={c} character_url={c} />
-                ))}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={starshipsExpanded} onChange={handleClickStarships}>
-          <AccordionSummary
-            expandIcon={<Button>{starshipsExpanded ? "-" : "+"}</Button>}
-          >
-            <Typography>Starships</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
-              {starshipsExpanded &&
-                film.starships.map((s) => (
-                  <Starship key={s} starship_url={s} />
-                ))}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={vehiclesExpanded} onChange={handleClickVehicles}>
-          <AccordionSummary
-            expandIcon={<Button>{vehiclesExpanded ? "-" : "+"}</Button>}
-          >
-            <Typography>Vehicles</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
-              {vehiclesExpanded &&
-                film.vehicles.map((v) => <Vehicle key={v} vehicle_url={v} />)}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={speciesExpanded} onChange={handleClickSpecies}>
-          <AccordionSummary
-            expandIcon={<Button>{speciesExpanded ? "-" : "+"}</Button>}
-          >
-            <Typography>Species</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
-              {speciesExpanded &&
-                film.species.map((s) => <Species key={s} species_url={s} />)}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
+          items={film.characters}
+          renderItem={(item) => <Character key={item} character_url={item} />}
+        />
+        <ExpandableAccordion
+          title="Starships"
+          expanded={starshipsExpanded}
+          onChange={handleClickStarships}
+          items={film.starships}
+          renderItem={(item) => <Starship key={item} starship_url={item} />}
+        />
+        <ExpandableAccordion
+          title="Vehicles"
+          expanded={vehiclesExpanded}
+          onChange={handleClickVehicles}
+          items={film.vehicles}
+          renderItem={(item) => <Vehicle key={item} vehicle_url={item} />}
+        />
+        <ExpandableAccordion
+          title="Species"
+          expanded={speciesExpanded}
+          onChange={handleClickSpecies}
+          items={film.species}
+          renderItem={(item) => <Species key={item} species_url={item} />}
+        />
       </CardContent>
     </Card>
   );
