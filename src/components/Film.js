@@ -13,10 +13,14 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Character from "./Character";
 import Starship from "./Starship";
+import Vehicle from "./Vehicle";
+import Species from "./Species";
 
 export default function Film({ film }) {
   const [charactersExpanded, setCharactersExpanded] = useState(false);
   const [starshipsExpanded, setStarshipsExpanded] = useState(false);
+  const [vehiclesExpanded, setVehiclesExpanded] = useState(false);
+  const [speciesExpanded, setSpeciesExpanded] = useState(false);
 
   const handleClickCharacters = (event) => {
     setCharactersExpanded((prev) => !prev);
@@ -24,6 +28,14 @@ export default function Film({ film }) {
 
   const handleClickStarships = (event) => {
     setStarshipsExpanded((prev) => !prev);
+  };
+
+  const handleClickVehicles = (event) => {
+    setVehiclesExpanded((prev) => !prev);
+  };
+
+  const handleClickSpecies = (event) => {
+    setSpeciesExpanded((prev) => !prev);
   };
 
   return (
@@ -80,6 +92,32 @@ export default function Film({ film }) {
                 film.starships.map((s) => (
                   <Starship key={s} starship_url={s} />
                 ))}
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion expanded={vehiclesExpanded} onChange={handleClickVehicles}>
+          <AccordionSummary
+            expandIcon={<Button>{vehiclesExpanded ? "-" : "+"}</Button>}
+          >
+            <Typography>Vehicles</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
+              {vehiclesExpanded &&
+                film.vehicles.map((v) => <Vehicle key={v} vehicle_url={v} />)}
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion expanded={speciesExpanded} onChange={handleClickSpecies}>
+          <AccordionSummary
+            expandIcon={<Button>{speciesExpanded ? "-" : "+"}</Button>}
+          >
+            <Typography>Species</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box display={"flex"} flexWrap={"wrap"} gap={2}>
+              {speciesExpanded &&
+                film.species.map((s) => <Species key={s} species_url={s} />)}
             </Box>
           </AccordionDetails>
         </Accordion>
